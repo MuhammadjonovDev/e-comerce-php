@@ -1,0 +1,21 @@
+# macOS
+.DS_Store
+
+database.php
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Database credentials
+config.php
+database.local.php
+
+# Dependencies
+vendor/
+node_modules/
+
+# IDE
+.idea/
+.vscode/
