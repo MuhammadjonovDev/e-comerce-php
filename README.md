@@ -1,84 +1,115 @@
-# PHP Blog Website
+# E-Commerce Product Management (PHP)
 
-A simple blog website built with PHP and MySQL. The project allows users to browse blog posts, read articles, and manage blog content.
+A lightweight product management web application built with PHP and MySQL. It supports listing, searching, adding, editing, and deleting products, including product image uploads.
 
 ## Features
 
-- Display blog posts
-- View individual blog articles
-- About page
-- Pricing page
-- Create new posts
-- Edit existing posts
-- Responsive user interface
-- MySQL database integration
+- Display all products
+- Search products by name or description
+- Add a product with name, description, price, and image
+- Edit product details and replace its image
+- Delete products and their associated uploaded images
+- MySQL database access through PDO
 
-## Technologies Used
+## Tech stack
 
 - PHP
 - MySQL
 - PDO
-- HTML5
-- CSS3
+- HTML
+- Tailwind CSS (loaded through the browser CDN)
 
-## Project Structure
+## Project structure
 
 ```text
-projectPHP/
-├── assets/
-│   └── style.css
+e-comerce-php/
+├── config/
+│   ├── autoload.php
+│   └── bootstrap.php
 ├── includes/
-│   ├── footer.php
-│   ├── header.php
-│   └── navbar.php
+│   └── header.php
 ├── src/
-│   └── images/
-├── about.php
-├── blog.php
-├── createPost.php
+│   ├── Database.php
+│   └── Product.php
+├── uploads/             # Product images
+├── addProduct.php
+├── editProduct.php
 ├── index.php
-├── post-edit.php
-├── post.php
-└── prices.php
+├── .gitignore
+└── README.md
 ```
+
+## Requirements
+
+- PHP 8.0 or later
+- MySQL 5.7+ or a compatible MariaDB version
+- PHP PDO MySQL extension (`pdo_mysql`)
+- A web server or PHP built-in development server
 
 ## Installation
 
-1. Clone the repository:
+### 1. Clone the repository
 
 ```bash
-git clone https://github.com/MuhammadjonovDev/blog-php.git
+git clone https://github.com/MuhammadjonovDev/e-comerce-php.git
+cd e-comerce-php
 ```
 
-2. Move into the project directory:
+### 2. Create the database
 
-```bash
-cd blog-php
+Create a MySQL database named `ecomerce`:
+
+```sql
+CREATE DATABASE ecomerce
+    CHARACTER SET utf8mb4
+    COLLATE utf8mb4_unicode_ci;
+
+USE ecomerce;
+
+CREATE TABLE products (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    body TEXT,
+    price DECIMAL(10, 2) NOT NULL DEFAULT 0.00,
+    image VARCHAR(255) DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 ```
 
-3. Create a MySQL database named `php-blog`.
+### 3. Configure the database connection
 
-4. Configure your database connection in `database.php`:
+The current connection settings are in `config/bootstrap.php`:
 
 ```php
-<?php
-$servername = "127.0.0.1";
-$username = "root";
-$password = "";
-$dbname = "php-blog";
+$database = new Database('127.0.0.1', 'root', '', 'ecomerce');
 ```
 
-5. Start your local PHP server:
+Change the host, MySQL username, password, and database name to match your local environment. Do not commit real production credentials to GitHub. For a deployed environment, load credentials from environment variables or a local configuration file excluded by `.gitignore`.
+
+### 4. Make sure uploads is writable
+
+The application saves uploaded product images in the `uploads/` directory. Ensure the PHP process has permission to write to this directory.
+
+### 5. Start the development server
+
+Run this command from the project root:
 
 ```bash
 php -S localhost:8000
 ```
 
-6. Open your browser:
+Open the application:
 
 ```text
 http://localhost:8000
 ```
+
+## Notes
+
+- The application expects the MySQL table to be named `products` with the columns shown in the SQL setup above.
+- Product images are stored as files in `uploads/`; the database stores each image filename.
+- The Tailwind browser CDN is convenient for development. For production, consider compiling Tailwind CSS into static assets.
+- Use this project as a learning/demo application. Add authentication, CSRF protection, server-side validation, and stricter upload validation before deploying it publicly.
 
 ## Author
 
