@@ -1,0 +1,32 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Local database configuration
+config/database.local.php
+config/bootstrap.local.php
+database.php
+
+# Dependencies
+/vendor/
+/node_modules/
+
+# Logs and temporary files
+*.log
+/tmp/
+.cache/
+
+# Keep the uploads directory in Git, including existing product images.
+# Add uploads/* here later if uploaded product images should stay server-local.
